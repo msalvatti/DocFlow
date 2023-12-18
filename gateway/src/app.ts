@@ -4,6 +4,7 @@ import cors from 'cors';
 
 import { errorMiddleware } from './middlewares/errorMiddleware';
 import { notFoundMiddleware } from './middlewares/notFoundMiddleware';
+import gatewayRoutes from './routes/gatewayRoutes';
 
 const app: Application = express();
 app.use(bodyParser.json());
@@ -14,7 +15,7 @@ if (process.env.NODE_ENV !== 'production') {
     app.use(morgan('dev'));
 }
 
-
+app.use('/api', gatewayRoutes);
 
 app.use(notFoundMiddleware);
 
