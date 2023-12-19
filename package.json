@@ -1,0 +1,10 @@
+{
+  "name": "docflow",
+  "version": "0.1.0",
+  "description": "Certificate management system",
+  "author": "Maximiliano Salvatti <msalvatti@gmail.com>",
+  "scripts": {
+    "docker:create": "docker-compose up --build",
+    "docker:start": "docker-compose up -d"
+  }
+}

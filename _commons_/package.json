@@ -1,0 +1,16 @@
+{
+  "name": "commons",
+  "version": "0.1.0",
+  "description": "Certificate management system - Commons",
+  "author": "Maximiliano Salvatti <msalvatti@gmail.com>",
+  "scripts": {
+    "build": "tsc"
+  },
+  "devDependencies": {
+    "prisma": "^5.7.1",
+    "typescript": "^5.3.3"
+  },
+  "dependencies": {
+    "@prisma/client": "^5.7.1"
+  }
+}
