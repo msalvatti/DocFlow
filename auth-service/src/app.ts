@@ -4,7 +4,7 @@ import helmet from 'helmet';
 
 import { errorMiddleware } from './middlewares/errorMiddleware';
 import { notFoundMiddleware } from './middlewares/notFoundMiddleware';
-import gatewayRoutes from './routes/gatewayRoutes';
+import authRoutes from './routes/authRoutes';
 
 const app: Application = express();
 app.use(express.json());
@@ -16,7 +16,7 @@ if (process.env.NODE_ENV !== 'production') {
     app.use(morgan('dev'));
 }
 
-app.use('/api', gatewayRoutes);
+app.use('/api/auth', authRoutes);
 
 app.use(notFoundMiddleware);
 
