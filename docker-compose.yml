@@ -1,0 +1,39 @@
+version: '3'
+
+services:
+  mongodb-primary:
+    image: mongo
+    container_name: mongodb-primary
+    ports:
+      - "27017:27017"
+    volumes:
+      - mongodb-data-primary:/data/db
+    environment:
+      MONGO_REPLICA_SET_MODE: primary
+
+  mongodb-secondary-1:
+    image: mongo
+    container_name: mongodb-secondary-1
+    ports:
+      - "27018:27017"
+    volumes:
+      - mongodb-data-secondary-1:/data/db
+    environment:
+      MONGO_REPLICA_SET_MODE: secondary
+      MONGO_PRIMARY_HOST: mongodb-primary
+
+  mongodb-secondary-2:
+    image: mongo
+    container_name: mongodb-secondary-2
+    ports:
+      - "27019:27017"
+    volumes:
+      - mongodb-data-secondary-2:/data/db
+    environment:
+      MONGO_REPLICA_SET_MODE: secondary
+      MONGO_PRIMARY_HOST: mongodb-primary
+
+volumes:
+  mongodb-data-primary:
+  mongodb-data-secondary-1:
+  mongodb-data-secondary-2:
