@@ -1,9 +1,6 @@
 {
   "compilerOptions": {
-    "types": [
-      "node"
-    ],
-    "target": "es6",
+    "target": "es2020",
     "module": "commonjs",
     "outDir": "./dist",
     "rootDir": "./",
