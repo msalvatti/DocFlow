@@ -13,12 +13,11 @@ export class UsersSeeder implements ISeeder {
         }
 
         const users = [
-            { login: "test", password: "1234" }
+            { username: "test", password: "1234" }
         ];
 
         for (let i = 0; i < users.length; i++) {
             const user = users[i];
-            console.log(user.login);
             await usersRepository.addUser(user);
         }
 
