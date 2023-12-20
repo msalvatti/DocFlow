@@ -1,5 +1,5 @@
 import connect from "./db";
-import { Certificate } from "commons/models/certificate";
+import { Certificate, Status } from "commons/models/certificate";
 
 async function getRequestCertificatesbyUser(userId: string): Promise<Certificate[] | null> {
     const db = await connect();
@@ -25,6 +25,7 @@ async function addRequestCertificate(certificate: Certificate): Promise<Certific
             birthDate: new Date(certificate.birthDate),
             address: certificate.address,
             certificate: certificate.certificate,
+            status: Status.new,
             filename: certificate.filename || null,
             createAt: new Date(),
             updateAt: new Date()

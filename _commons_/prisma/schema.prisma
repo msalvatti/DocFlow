@@ -27,6 +27,7 @@ model certificates {
   birthDate   DateTime
   address     String
   certificate String
+  status      String
   filename    String?
   createAt    DateTime
   updateAt    DateTime

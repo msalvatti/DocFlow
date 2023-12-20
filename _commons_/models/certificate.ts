@@ -7,6 +7,7 @@ export type Certificate = {
     birthDate: Date;
     address: string;
     certificate: string;
+    status: string;
     filename?: string | null;
     createAt: Date;
     updateAt: Date;
@@ -16,4 +17,9 @@ export enum Certificates {
     MARRIAGE = 1,
     BIRTH = 2,
     IMMOBILE = 3
+}
+
+export const Status = {
+    new: "NEW",
+    issued: "ISSUED"
 }
