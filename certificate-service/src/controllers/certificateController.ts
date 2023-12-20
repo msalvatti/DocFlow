@@ -1,5 +1,7 @@
 import { Request, Response } from 'express';
 import certificatesRepository from "../repositories/certificatesRepository";
+import { Status } from "commons/models/certificate";
+import { Profiles } from "commons/models/user";
 
 export const getRequestCertificatesbyUser = async (req: Request, res: Response): Promise<Response> => {
     try {
@@ -30,7 +32,7 @@ export const AddRequestCertificate = async (req: Request, res: Response): Promis
     }
 };
 
-export const deleteRequestCertificatesbyUser = async (req: Request, res: Response): Promise<Response> => {
+export const deleteRequestCertificatebyUser = async (req: Request, res: Response): Promise<Response> => {
     try {
         const id: string = req.params.id;
 
@@ -49,6 +51,31 @@ export const deleteRequestCertificatesbyUser = async (req: Request, res: Respons
         return res.status(204).send();
     } catch (error) {
         console.error('Error Delete Request Certificate:', error);
+        return res.status(500).send('500 Internal Server Error.');
+    }
+};
+
+export const updateRequestCertificatebyId = async (req: Request, res: Response): Promise<Response> => {
+    try {
+        const id: string = req.params.id;
+
+        const profile = res.locals.token.profile;
+
+        const { newStatus } = req.body;
+
+        const existingRequestCertificate = await certificatesRepository.getRequestCertificateById(id);
+
+        if (!existingRequestCertificate)
+            return res.status(404).json({ error: 'Request Certificate not found.' });
+
+        if (existingRequestCertificate.status !== Status.new && profile !== `${Profiles.ADMINISTRATOR}`)
+            return res.status(403).json({ error: '403 Forbidden.' });
+
+        const updatedRequest = await certificatesRepository.updateRequestCertificateById(id, { status: newStatus });
+
+        return res.json(updatedRequest);
+    } catch (error) {
+        console.error('Error Update Request Certificate:', error);
         return res.status(500).send('500 Internal Server Error.');
     }
 };

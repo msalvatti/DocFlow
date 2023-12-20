@@ -67,4 +67,24 @@ router.delete('/:id', async (req, res) => {
   }
 });
 
+router.put('/:id', async (req, res) => {
+  try {
+    const token = req.headers.authorization;
+
+    const id: string = req.params.id;
+
+    const { newStatus } = req.body;
+
+    const response = await axios.put(`${CERTIFICATE_SERVICE_URL}/api/certificate/${id}`, { newStatus }, {
+      headers: {
+        Authorization: token,
+      },
+    });
+
+    res.status(response.status).json(response.data);
+  } catch (error: unknown) {
+    handleAxiosError(error, res);
+  }
+});
+
 export default router;

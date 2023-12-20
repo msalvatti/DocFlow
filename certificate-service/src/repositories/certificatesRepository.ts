@@ -59,9 +59,24 @@ async function deleteRequestCertificateByUser(id: string, userId: string): Promi
     });
 }
 
+async function updateRequestCertificateById(id: string, updatedCertificateData: Partial<Certificate>): Promise<Certificate | null> {
+    const db = await connect();
+
+    const updatedCertificate = await db.certificates.update({
+        where: {
+            id,
+        },
+        data: updatedCertificateData,
+    });
+
+    return updatedCertificate;
+}
+
+
 export default {
     getRequestCertificatesbyUser,
     getRequestCertificateById,
     addRequestCertificate,
-    deleteRequestCertificateByUser
+    deleteRequestCertificateByUser,
+    updateRequestCertificateById
 }
