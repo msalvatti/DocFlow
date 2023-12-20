@@ -47,7 +47,7 @@ async function addRequestCertificate(certificate: Certificate): Promise<Certific
     return newCertificate;
 }
 
-async function deleteRequestCertificateById(id: string, userId: string): Promise<void> {
+async function deleteRequestCertificateByUser(id: string, userId: string): Promise<void> {
     const db = await connect();
 
     await db.certificates.delete({
@@ -63,5 +63,5 @@ export default {
     getRequestCertificatesbyUser,
     getRequestCertificateById,
     addRequestCertificate,
-    deleteRequestCertificateById
+    deleteRequestCertificateByUser
 }

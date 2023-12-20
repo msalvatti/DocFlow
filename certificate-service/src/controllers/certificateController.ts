@@ -44,7 +44,7 @@ export const deleteRequestCertificatesbyUser = async (req: Request, res: Respons
         if (existingRequestCertificate.userId !== userId)
             return res.status(403).json({ error: '403 Forbidden.' });
 
-        await certificatesRepository.deleteRequestCertificateById(id, userId);
+        await certificatesRepository.deleteRequestCertificateByUser(id, userId);
 
         return res.status(204).send();
     } catch (error) {
