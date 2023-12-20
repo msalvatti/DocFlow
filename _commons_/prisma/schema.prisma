@@ -17,3 +17,15 @@ model users {
   password String
   profile  String
 }
+
+model certificates {
+  id          String   @id @default(auto()) @map("_id") @db.ObjectId
+  username    String
+  name        String
+  cpf         String
+  phone       String
+  birthDate   DateTime
+  address     String
+  certificate String
+  filename    String?
+}
