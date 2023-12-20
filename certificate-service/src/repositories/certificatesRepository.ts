@@ -1,13 +1,13 @@
 import connect from "./db";
 import { Certificate, Status } from "commons/models/certificate";
 
-async function getRequestCertificatesbyUser(userId: string): Promise<Certificate[] | null> {
+async function getRequestCertificates(userId?: string): Promise<Certificate[] | null> {
     const db = await connect();
 
+    const whereClause = userId ? { userId } : {};
+
     const certificates = await db.certificates.findMany({
-        where: {
-            userId: userId,
-        },
+        where: whereClause,
     });
 
     return certificates;
@@ -75,7 +75,7 @@ async function updateRequestCertificateById(id: string, updatedCertificateData: 
 
 
 export default {
-    getRequestCertificatesbyUser,
+    getRequestCertificates,
     getRequestCertificateById,
     addRequestCertificate,
     updateRequestCertificateById,

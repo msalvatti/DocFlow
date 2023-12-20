@@ -3,11 +3,16 @@ import certificatesRepository from "../repositories/certificatesRepository";
 import { Status } from "commons/models/certificate";
 import { Profiles } from "commons/models/user";
 
-export const getRequestCertificatesbyUser = async (req: Request, res: Response): Promise<Response> => {
+export const getRequestCertificates = async (req: Request, res: Response): Promise<Response> => {
     try {
-        const userId = res.locals.token.id;
+        let userId = res.locals.token.id;
 
-        const certificates = await certificatesRepository.getRequestCertificatesbyUser(userId);
+        const profile = res.locals.token.profile;
+
+        if (profile !== `${Profiles.CLIENT}`)
+            userId = null;
+
+        const certificates = await certificatesRepository.getRequestCertificates(userId);
 
         return res.json(certificates);
     } catch (error) {

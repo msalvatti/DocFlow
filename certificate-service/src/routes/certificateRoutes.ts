@@ -1,10 +1,10 @@
 import express from 'express';
 import { profileMiddleware } from '../middlewares/profileMiddleware';
-import { getRequestCertificatesbyUser, AddRequestCertificate, deleteRequestCertificatebyId, updateRequestCertificatebyId } from '../controllers/certificateController';
+import { getRequestCertificates, AddRequestCertificate, deleteRequestCertificatebyId, updateRequestCertificatebyId } from '../controllers/certificateController';
 
 const router = express.Router();
 
-router.get('/user/all', getRequestCertificatesbyUser);
+router.get('/', getRequestCertificates);
 
 router.post('/', AddRequestCertificate);
 
