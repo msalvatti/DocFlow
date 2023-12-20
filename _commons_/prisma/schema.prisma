@@ -28,4 +28,6 @@ model certificates {
   address     String
   certificate String
   filename    String?
+  createAt    DateTime
+  updateAt    DateTime
 }

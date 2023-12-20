@@ -8,6 +8,8 @@ export type Certificate = {
     address: string;
     certificate: string;
     filename?: string | null;
+    createAt: Date;
+    updateAt: Date;
 }
 
 export enum Certificates {

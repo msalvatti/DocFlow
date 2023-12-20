@@ -3,7 +3,6 @@ import cors from 'cors';
 import helmet from 'helmet';
 
 import { authMiddleware } from './middlewares/authMiddleware';
-import { profileMiddleware } from './middlewares/profileMiddleware';
 import { errorMiddleware } from './middlewares/errorMiddleware';
 import { notFoundMiddleware } from './middlewares/notFoundMiddleware';
 import certificateRoutes from './routes/certificateRoutes';

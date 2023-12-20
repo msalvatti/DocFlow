@@ -31,4 +31,22 @@ router.get('/user/all', async (req, res) => {
   }
 });
 
+router.post('/', async (req, res) => {
+  try {
+    const token = req.headers.authorization;
+
+    const { certificate } = req.body;
+
+    const response = await axios.post(`${CERTIFICATE_SERVICE_URL}/api/certificate`, { certificate }, {
+      headers: {
+        Authorization: token,
+      },
+    });
+
+    res.status(response.status).json(response.data);
+  } catch (error: unknown) {
+    handleAxiosError(error, res);
+  }
+});
+
 export default router;
