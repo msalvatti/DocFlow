@@ -1,5 +1,6 @@
 import ISeeder from "./ISeeder";
 import usersRepository from "../repositories/usersRepository";
+import { Profiles } from "commons/models/user"
 
 export class UsersSeeder implements ISeeder {
     async execute(): Promise<void> {
@@ -13,7 +14,11 @@ export class UsersSeeder implements ISeeder {
         }
 
         const users = [
-            { username: "test", password: "1234" }
+            { username: "admin", password: "adm1234", profile: `${Profiles.ADMINISTRATOR}`},
+            { username: "operator", password: "op1234", profile: `${Profiles.OPERATOR}`},
+            { username: "test", password: "1234", profile: `${Profiles.CLIENT}`},
+            { username: "client1", password: "client1234", profile: `${Profiles.CLIENT}`},
+            { username: "client2", password: "client1234", profile: `${Profiles.CLIENT}`}
         ];
 
         for (let i = 0; i < users.length; i++) {

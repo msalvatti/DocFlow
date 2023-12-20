@@ -34,7 +34,8 @@ async function addUser(user: User) : Promise<User> {
     const newUser = await db.users.create({
         data: {
             username: user.username,
-            password: hashedPassword
+            password: hashedPassword,
+            profile: user.profile
         }
     })
 

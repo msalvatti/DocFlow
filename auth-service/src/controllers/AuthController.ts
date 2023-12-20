@@ -18,7 +18,7 @@ export const authenticate = async (req: Request, res: Response): Promise<Respons
             const isPasswordValid = await bcrypt.compare(password, user.password);
 
             if (isPasswordValid) {
-                const token = jwt.sign({ id: user.id, username: user.username }, secretKey, {
+                const token = jwt.sign({ id: user.id, username: user.username, profile: user.profile }, secretKey, {
                     expiresIn: parseInt(process.env.JWT_EXPIRES || '180000'),
                 });
 
