@@ -49,4 +49,22 @@ router.post('/', async (req, res) => {
   }
 });
 
+router.delete('/:id', async (req, res) => {
+  try {
+    const token = req.headers.authorization;
+
+    const id: string = req.params.id;
+
+    const response = await axios.delete(`${CERTIFICATE_SERVICE_URL}/api/certificate/${id}`, {
+      headers: {
+        Authorization: token,
+      },
+    });
+
+    res.status(response.status).json(response.data);
+  } catch (error: unknown) {
+    handleAxiosError(error, res);
+  }
+});
+
 export default router;

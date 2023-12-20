@@ -13,6 +13,18 @@ async function getRequestCertificatesbyUser(userId: string): Promise<Certificate
     return certificates;
 }
 
+async function getRequestCertificateById(id: string): Promise<Certificate | null> {
+    const db = await connect();
+
+    const certificate = await db.certificates.findUnique({
+        where: {
+            id,
+        },
+    });
+
+    return certificate;
+}
+
 async function addRequestCertificate(certificate: Certificate): Promise<Certificate> {
     const db = await connect();
 
@@ -35,7 +47,21 @@ async function addRequestCertificate(certificate: Certificate): Promise<Certific
     return newCertificate;
 }
 
+async function deleteRequestCertificateById(id: string, userId: string): Promise<void> {
+    const db = await connect();
+
+    await db.certificates.delete({
+        where: {
+            id,
+            userId: userId,
+            status: Status.new,
+        },
+    });
+}
+
 export default {
     getRequestCertificatesbyUser,
-    addRequestCertificate
+    getRequestCertificateById,
+    addRequestCertificate,
+    deleteRequestCertificateById
 }
