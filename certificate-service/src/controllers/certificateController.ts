@@ -50,8 +50,8 @@ export const deleteRequestCertificatebyId = async (req: Request, res: Response):
         if (!existingRequestCertificate)
             return res.status(404).json({ error: 'Request Certificate not found.' });
 
-        if (((existingRequestCertificate.userId !== userId || existingRequestCertificate.status !== Status.new) && profile === `${Profiles.CLIENT}`) ||
-            (existingRequestCertificate.status !== Status.new && profile !== `${Profiles.ADMINISTRATOR}`))
+        if (((existingRequestCertificate.userId !== userId || existingRequestCertificate.status !== Status.pending) && profile === `${Profiles.CLIENT}`) ||
+            (existingRequestCertificate.status !== Status.pending && profile !== `${Profiles.ADMINISTRATOR}`))
             return res.status(403).json({ error: '403 Forbidden.' });
 
         if (profile !== `${Profiles.CLIENT}`)
@@ -79,7 +79,7 @@ export const updateRequestCertificatebyId = async (req: Request, res: Response):
         if (!existingRequestCertificate)
             return res.status(404).json({ error: 'Request Certificate not found.' });
 
-        if (existingRequestCertificate.status !== Status.new && profile !== `${Profiles.ADMINISTRATOR}`)
+        if (existingRequestCertificate.status !== Status.pending && profile !== `${Profiles.ADMINISTRATOR}`)
             return res.status(403).json({ error: '403 Forbidden.' });
 
         const updatedRequest = await certificatesRepository.updateRequestCertificateById(id, { status: newStatus });

@@ -37,7 +37,7 @@ async function addRequestCertificate(certificate: Certificate): Promise<Certific
             birthDate: new Date(certificate.birthDate),
             address: certificate.address,
             certificate: certificate.certificate,
-            status: Status.new,
+            status: Status.pending,
             filename: certificate.filename || null,
             createAt: new Date(),
             updateAt: new Date()

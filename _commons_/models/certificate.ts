@@ -20,6 +20,7 @@ export enum Certificates {
 }
 
 export const Status = {
-    new: "NEW",
-    issued: "ISSUED"
+    pending: "PENDING",
+    issued: "ISSUED",
+    denied: "DENIED"
 }
