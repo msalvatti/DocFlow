@@ -1,10 +1,10 @@
 import express from 'express';
 import authRoutes from './authRoutes';
-import certificationRoutes from './certificationRoutes';
+import certificateRoutes from './certificateRoutes';
 
 const router = express.Router();
 
 router.use('/auth', authRoutes);
-router.use('/certification', certificationRoutes);
+router.use('/certificate', certificateRoutes);
 
 export default router;

@@ -20,7 +20,7 @@ model users {
 
 model certificates {
   id          String   @id @default(auto()) @map("_id") @db.ObjectId
-  username    String
+  userId      String
   name        String
   cpf         String
   phone       String

@@ -1,13 +1,13 @@
 export type Certificate = {
     id?: string;
-    username: string;
+    userId: string;
     name: string;
     cpf: string;
     phone: string;
     birthDate: Date;
     address: string;
     certificate: string;
-    filename?: string;
+    filename?: string | null;
 }
 
 export enum Certificates {
