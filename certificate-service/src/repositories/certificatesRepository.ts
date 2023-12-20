@@ -47,15 +47,16 @@ async function addRequestCertificate(certificate: Certificate): Promise<Certific
     return newCertificate;
 }
 
-async function deleteRequestCertificateByUser(id: string, userId: string): Promise<void> {
+async function deleteRequestCertificateById(id: string, userId?: string): Promise<void> {
     const db = await connect();
 
+    const whereClause = {
+        id,
+        ...(userId ? { userId } : {}),
+    };
+
     await db.certificates.delete({
-        where: {
-            id,
-            userId: userId,
-            status: Status.new,
-        },
+        where: whereClause,
     });
 }
 
@@ -77,6 +78,6 @@ export default {
     getRequestCertificatesbyUser,
     getRequestCertificateById,
     addRequestCertificate,
-    deleteRequestCertificateByUser,
-    updateRequestCertificateById
+    updateRequestCertificateById,
+    deleteRequestCertificateById
 }

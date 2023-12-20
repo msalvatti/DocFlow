@@ -32,21 +32,27 @@ export const AddRequestCertificate = async (req: Request, res: Response): Promis
     }
 };
 
-export const deleteRequestCertificatebyUser = async (req: Request, res: Response): Promise<Response> => {
+export const deleteRequestCertificatebyId = async (req: Request, res: Response): Promise<Response> => {
     try {
         const id: string = req.params.id;
 
-        const userId = res.locals.token.id;
+        let userId = res.locals.token.id;
+
+        const profile = res.locals.token.profile;
 
         const existingRequestCertificate = await certificatesRepository.getRequestCertificateById(id);
 
         if (!existingRequestCertificate)
             return res.status(404).json({ error: 'Request Certificate not found.' });
 
-        if (existingRequestCertificate.userId !== userId)
+        if (((existingRequestCertificate.userId !== userId || existingRequestCertificate.status !== Status.new) && profile === `${Profiles.CLIENT}`) ||
+            (existingRequestCertificate.status !== Status.new && profile !== `${Profiles.ADMINISTRATOR}`))
             return res.status(403).json({ error: '403 Forbidden.' });
 
-        await certificatesRepository.deleteRequestCertificateByUser(id, userId);
+        if (profile !== `${Profiles.CLIENT}`)
+            userId = null;
+
+        await certificatesRepository.deleteRequestCertificateById(id, userId);
 
         return res.status(204).send();
     } catch (error) {
