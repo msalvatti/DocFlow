@@ -57,11 +57,11 @@ function DashboardRow(props: Props) {
     function getCertificatesKind() {
         let text = "";
         switch (props.data.certificate) {
-            case "1": {
+            case `${Certificates.MARRIAGE}`: {
                 text = "Marriage";
                 break;
             }
-            case "2": {
+            case `${Certificates.BIRTH}`: {
                 text = "Birth";
                 break;
             }

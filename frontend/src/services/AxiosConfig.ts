@@ -1,16 +1,17 @@
 import axios from 'axios';
 
-const instance = axios.create({
-    headers: {
-        "Content-Type": "application/json",
-        "Authorization": localStorage.getItem("token") || ""
-    }
-});
+axios.interceptors.request.use(
+    config => {
+        config.headers.Authorization = localStorage.getItem('token');
+        return config;
+    },
+    error => Promise.reject(error)
+)
 
-instance.interceptors.response.use(
+axios.interceptors.response.use(
     response => response,
     error => {
-        if (error.response && [401, 403].includes(error.response.status)) {
+        if (error.response && [401].includes(error.response.status)) {
             console.error(`Redirecting to login by 4xx response!`);
             localStorage.removeItem("token");
             localStorage.removeItem("profile");
@@ -23,4 +24,4 @@ instance.interceptors.response.use(
     }
 )
 
-export default instance;
+export default axios;

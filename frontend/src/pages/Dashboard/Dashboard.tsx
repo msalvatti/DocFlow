@@ -3,7 +3,7 @@ import { useLocation, useNavigate } from "react-router-dom";
 import Sidebar from "../../components/Sidebar";
 import Alert from "../../components/Alert";
 import Loader from "../../components/Loader";
-import { getRequestCertificates } from "../../services/ApiService";
+import { getRequestCertificates, deleteRequestCertificatebyId } from "../../services/ApiService";
 import { Certificate } from "../../services/ApiService";
 import DashboardRow from "./DashboardRow";
 
@@ -15,25 +15,46 @@ function Dashboard() {
     const [requests, setRequests] = useState<Certificate[]>([]);
     const [error, setError] = useState<string>("");
     const [isLoading, setIsLoading] = useState<boolean>(false);
-
-    function useQuery() {
-        return new URLSearchParams(useLocation().search);
-    }
-
-    const query = useQuery();
+    const [isRefresh, setRefresh] = useState<boolean>(false);
 
     useEffect(() => {
+        setRefresh(true);
+    }, [])
+
+    useEffect(() => {
+        if (isRefresh) {
+            setIsLoading(true);
+            getRequestCertificates()
+                .then(result => {
+                    setRequests(result.data)
+                    setIsLoading(false);
+                })
+                .catch(err => {
+                    setIsLoading(false);
+                    setError(err.message);
+                });
+            setRefresh(false);
+        }
+    }, [isRefresh])
+
+    function onDelete(id: string) {
         setIsLoading(true);
-        getRequestCertificates()
-            .then(result => {
-                setRequests(result.data)
+        setMessage("");
+        setError("");
+        deleteRequestCertificatebyId(id)
+            .then(() => {
                 setIsLoading(false);
+                setRefresh(true);
             })
             .catch(err => {
-                setMessage(err.message);
                 setIsLoading(false);
-            });
-    }, [])
+                if (err.message.includes("403")) {
+                    setError("You do not have permission to delete the request certificate");
+                }
+                else
+                    setError(err.message);
+            })
+    }
 
     return (
         <>
@@ -84,7 +105,7 @@ function Dashboard() {
                                             <tbody>
                                                 {
                                                     requests && requests.length
-                                                        ? requests.map(request => <DashboardRow key={request.id} data={request} onDelete={() => console.log("delete")} onEdit={() => console.log("edit")} />)
+                                                        ? requests.map(request => <DashboardRow key={request.id} data={request} onDelete={(id: string) => onDelete(id)} onEdit={() => console.log("edit")} />)
                                                         : <></>
                                                 }
                                             </tbody>

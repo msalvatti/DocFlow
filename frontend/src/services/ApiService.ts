@@ -45,6 +45,11 @@ export async function getRequestCertificates() {
     return response;
 }
 
+export async function deleteRequestCertificatebyId(id: string) {
+    const response = await axios.delete(`${API_URL}/api/certificate/${id}`);
+    return response;
+}
+
 export function doLogout() {
     localStorage.removeItem("profile");
     localStorage.removeItem("token");
