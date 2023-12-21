@@ -4,7 +4,8 @@
   "description": "Certificate management system - Commons",
   "author": "Maximiliano Salvatti <msalvatti@gmail.com>",
   "scripts": {
-    "build": "tsc"
+    "build": "tsc",
+    "prisma:create": "npx prisma generate"
   },
   "devDependencies": {
     "prisma": "^5.7.1",

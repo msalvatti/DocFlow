@@ -1,0 +1,324 @@
+{
+	"info": {
+		"_postman_id": "f7ecde8b-e654-48c0-be52-2eed85a2a9dd",
+		"name": "DocFlow",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "19970454"
+	},
+	"item": [
+		{
+			"name": "Certificate",
+			"item": [
+				{
+					"name": "getRequestCertificates",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "{{token}}",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{gateway}}/api/certificate?search=max",
+							"host": [
+								"{{gateway}}"
+							],
+							"path": [
+								"api",
+								"certificate"
+							],
+							"query": [
+								{
+									"key": "search",
+									"value": "max"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "deleteRequestCertificateById",
+					"request": {
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "{{token}}",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{gateway}}/api/certificate/6582eda144f8ac932624fe97",
+							"host": [
+								"{{gateway}}"
+							],
+							"path": [
+								"api",
+								"certificate",
+								"6582eda144f8ac932624fe97"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "getRequestCertificateById",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "{{token}}",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{gateway}}/api/certificate/658335592f1f5eb293ab000d",
+							"host": [
+								"{{gateway}}"
+							],
+							"path": [
+								"api",
+								"certificate",
+								"658335592f1f5eb293ab000d"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "updateRequestCertificateById",
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "{{token}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"newStatus\": \"DENIED\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{gateway}}/api/certificate/658335592f1f5eb293ab000d",
+							"host": [
+								"{{gateway}}"
+							],
+							"path": [
+								"api",
+								"certificate",
+								"658335592f1f5eb293ab000d"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "AddRequestCertificate",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "{{token}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"certificate\": {\n        \"name\": \"Maximiliano Salvatti\",\n        \"cpf\": \"000.000.000.00\",\n        \"phone\": \"(48) 99000-4033\",\n        \"birthDate\": \"2023-12-20T12:30:00.000Z\",\n        \"address\": \"Rua das Rosas, 111\",\n        \"certificate\": \"1\"\n    }\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{gateway}}/api/certificate",
+							"host": [
+								"{{gateway}}"
+							],
+							"path": [
+								"api",
+								"certificate"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Auth",
+			"item": [
+				{
+					"name": "login",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"username\": \"test\",\n    \"password\": \"1234\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{gateway}}/api/auth/login",
+							"host": [
+								"{{gateway}}"
+							],
+							"path": [
+								"api",
+								"auth",
+								"login"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Files",
+			"item": [
+				{
+					"name": "addFileRequestCertificates",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "{{token}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "file",
+									"type": "file",
+									"src": "/Users/maximiliano/Downloads/login-935679.png"
+								}
+							]
+						},
+						"url": {
+							"raw": "{{gateway}}/api/certificate/upload/111",
+							"host": [
+								"{{gateway}}"
+							],
+							"path": [
+								"api",
+								"certificate",
+								"upload",
+								"111"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "getFileRequestCertificates",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "{{token}}",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{gateway}}/api/certificate/upload/111.png",
+							"host": [
+								"{{gateway}}"
+							],
+							"path": [
+								"api",
+								"certificate",
+								"upload",
+								"111.png"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "deleteFileRequestCertificates",
+					"request": {
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "{{token}}",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{gateway}}/api/certificate/upload/111.png",
+							"host": [
+								"{{gateway}}"
+							],
+							"path": [
+								"api",
+								"certificate",
+								"upload",
+								"111.png"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		}
+	],
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					"pm.sendRequest({",
+					"    url: pm.variables.get('gateway') + '/api/auth/login',",
+					"    method: 'POST',",
+					"    header: {",
+					"        'Accept': '*/*',",
+					"        'Content-Type': 'application/json',",
+					"    },",
+					"    body: {",
+					"        mode: 'raw',",
+					"        raw: JSON.stringify({",
+					"            username: pm.variables.get('username'),",
+					"            password: pm.variables.get('password')",
+					"        })",
+					"    }",
+					"}, function (err, res) {",
+					"    pm.environment.set(\"token\", res.json().token);",
+					"});"
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		}
+	]
+}

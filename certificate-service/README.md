@@ -1,4 +1,4 @@
-# Certificate management system - Frontend
+# Certificate management system - Certificate Service
 
 ## Table of Contents
 
@@ -8,14 +8,16 @@
 
 ## Overview
 
-The Frontend was developed with React 18 and the Material-Dashboard which uses Bootstrap was used as a theme.
-With a friendly and beautiful interface, it is possible to manage certificate requests with private routes protected by a password.
+The certificate service was created to manage certificates.
+Through user permissions, they have access and rights to make changes to records.
+All routes have authentication using the JWT token that the Auth Service made available when logging in.
 
 ## Features
 
-- ReactJS was used to develop the Frontend.
-- Bootstrap with Material-Dashboard was used with theme.
+- NodeJS with ExpressJS was used to develop the microservice.
 - JWT token used to control user access, ensuring system security.
+- Prisma ORM was used to integrate with mongodb database.
+- Multer middleware was used for file upload management.
 
 ## Project Setup
 
@@ -28,7 +30,7 @@ git clone https://github.com/msalvatti/DocFlow.git
 2. Navigate to the project directory:
 
 cd DocFlow
-cd frontend
+cd certificate-service
 
 3. Install dependencies:
 
