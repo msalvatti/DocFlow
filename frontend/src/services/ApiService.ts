@@ -4,17 +4,17 @@ const API_URL = `${process.env.REACT_APP_API_URL}`;
 
 export type Certificate = {
     id?: string;
-    userId: string;
+    userId?: string;
     name: string;
     cpf: string;
     phone: string;
-    birthDate: Date;
+    birthDate: Date | string;
     address: string;
     certificate: string;
-    status: string;
+    status?: string;
     filename?: string | null;
-    createAt: Date;
-    updateAt: Date;
+    createAt?: Date;
+    updateAt?: Date;
 }
 
 export const Status = {
@@ -45,8 +45,23 @@ export async function getRequestCertificates() {
     return response;
 }
 
+export async function getRequestCertificateById(id: string) {
+    const response = await axios.get(`${API_URL}/api/certificate/${id}`);
+    return response;
+}
+
 export async function deleteRequestCertificatebyId(id: string) {
     const response = await axios.delete(`${API_URL}/api/certificate/${id}`);
+    return response;
+}
+
+export async function AddRequestCertificate(certificate: Certificate) {
+    const response = await axios.post(`${API_URL}/api/certificate`, { certificate });
+    return response;
+}
+
+export async function updateRequestCertificatebyId(certificate: Certificate, id: string) {
+    const response = await axios.put(`${API_URL}/api/certificate/${id}`, { certificate });
     return response;
 }
 

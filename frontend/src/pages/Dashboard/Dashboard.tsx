@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import { useLocation, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import Sidebar from "../../components/Sidebar";
 import Alert from "../../components/Alert";
 import Loader from "../../components/Loader";
@@ -56,6 +56,10 @@ function Dashboard() {
             })
     }
 
+    function onEdit(id: string) {
+        navigate(`/request?id=${id}`);
+    }
+
     return (
         <>
             <Sidebar />
@@ -105,7 +109,7 @@ function Dashboard() {
                                             <tbody>
                                                 {
                                                     requests && requests.length
-                                                        ? requests.map(request => <DashboardRow key={request.id} data={request} onDelete={(id: string) => onDelete(id)} onEdit={() => console.log("edit")} />)
+                                                        ? requests.map(request => <DashboardRow key={request.id} data={request} onDelete={(id: string) => onDelete(id)} onEdit={(id: string) => onEdit(id)} />)
                                                         : <></>
                                                 }
                                             </tbody>
@@ -113,7 +117,7 @@ function Dashboard() {
                                     </div>
                                     <div className="row ms-2">
                                         <div className="col-md-12 mb-3 mt-3">
-                                            <a className="btn bg-gradient-dark me-2" href="/topics/new">
+                                            <a className="btn bg-gradient-dark me-2" href="/request">
                                                 <i className="material-icons opacity-10 me-2">add</i>
                                                 Request Certificate
                                             </a>

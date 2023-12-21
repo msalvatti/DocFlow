@@ -113,13 +113,13 @@ function DashboardRow(props: Props) {
                 {getStatus()}
             </td>
             <td>
-                <a href={"#" + props.data.id} className="btn btn-info btn-sm me-1 m-0 px-2 py-1" onClick={btnEditClick}>
+                <button className="btn btn-info btn-sm me-1 m-0 px-2 py-1" onClick={btnEditClick}>
                     <i className="material-icons text-sm">visibility</i>
-                </a>
+                </button>
 
-                <a href={"#" + props.data.id} className="btn btn-danger btn-sm me-1 m-0 px-2 py-1" onClick={btnDeleteClick}>
+                <button className="btn btn-danger btn-sm me-1 m-0 px-2 py-1" onClick={btnDeleteClick}>
                     <i className="material-icons text-sm">delete</i>
-                </a>
+                </button>
             </td>
         </tr>
     )

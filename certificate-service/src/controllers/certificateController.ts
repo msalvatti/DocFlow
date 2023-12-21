@@ -21,6 +21,27 @@ export const getRequestCertificates = async (req: Request, res: Response): Promi
     }
 };
 
+export const getRequestCertificateById = async (req: Request, res: Response): Promise<Response> => {
+    try {
+        const id: string = req.params.id;
+
+        let userId = res.locals.token.id;
+
+        const profile = res.locals.token.profile;
+
+        const certificate = await certificatesRepository.getRequestCertificateById(id);
+
+        if (certificate && certificate.userId !== userId && profile === `${Profiles.CLIENT}`)
+            return res.status(403).json({ error: '403 Forbidden.' });
+
+
+        return res.json(certificate);
+    } catch (error) {
+        console.error('Error Get Request Certificates by User:', error);
+        return res.status(500).send('500 Internal Server Error.');
+    }
+};
+
 export const AddRequestCertificate = async (req: Request, res: Response): Promise<Response> => {
     try {
         const { certificate } = req.body;
@@ -72,7 +93,7 @@ export const updateRequestCertificatebyId = async (req: Request, res: Response):
 
         const profile = res.locals.token.profile;
 
-        const { newStatus } = req.body;
+        const { certificate } = req.body;
 
         const existingRequestCertificate = await certificatesRepository.getRequestCertificateById(id);
 
@@ -82,7 +103,7 @@ export const updateRequestCertificatebyId = async (req: Request, res: Response):
         if (existingRequestCertificate.status !== Status.pending && profile !== `${Profiles.ADMINISTRATOR}`)
             return res.status(403).json({ error: '403 Forbidden.' });
 
-        const updatedRequest = await certificatesRepository.updateRequestCertificateById(id, { status: newStatus });
+        const updatedRequest = await certificatesRepository.updateRequestCertificateById(id, { status: certificate.status });
 
         return res.json(updatedRequest);
     } catch (error) {

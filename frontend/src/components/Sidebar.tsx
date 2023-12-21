@@ -48,7 +48,7 @@ function Sidebar() {
             </div>
             <div className="sidenav-footer position-absolute w-100 bottom-0 ">
                 <div className="mx-3">
-                    <a className="btn bg-gradient-primary mt-4 w-100" href="#" type="button" onClick={btnLogoutClick}>Logout</a>
+                    <button className="btn bg-gradient-primary mt-4 w-100" onClick={btnLogoutClick}>Logout</button>
                 </div>
             </div>
         </aside>

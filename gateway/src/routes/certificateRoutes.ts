@@ -31,6 +31,24 @@ router.get('/', async (req, res) => {
   }
 });
 
+router.get('/:id', async (req, res) => {
+  try {
+    const token = req.headers.authorization;
+
+    const id: string = req.params.id;
+
+    const response = await axios.get(`${CERTIFICATE_SERVICE_URL}/api/certificate/${id}`, {
+      headers: {
+        Authorization: token,
+      },
+    });
+
+    res.status(response.status).json(response.data);
+  } catch (error: unknown) {
+    handleAxiosError(error, res);
+  }
+});
+
 router.post('/', async (req, res) => {
   try {
     const token = req.headers.authorization;
@@ -73,9 +91,9 @@ router.put('/:id', async (req, res) => {
 
     const id: string = req.params.id;
 
-    const { newStatus } = req.body;
+    const { certificate } = req.body;
 
-    const response = await axios.put(`${CERTIFICATE_SERVICE_URL}/api/certificate/${id}`, { newStatus }, {
+    const response = await axios.put(`${CERTIFICATE_SERVICE_URL}/api/certificate/${id}`, { certificate }, {
       headers: {
         Authorization: token,
       },

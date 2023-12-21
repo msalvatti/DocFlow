@@ -1,8 +1,10 @@
 import express from 'express';
 import { profileMiddleware } from '../middlewares/profileMiddleware';
-import { getRequestCertificates, AddRequestCertificate, deleteRequestCertificatebyId, updateRequestCertificatebyId } from '../controllers/certificateController';
+import { getRequestCertificates, getRequestCertificateById, AddRequestCertificate, deleteRequestCertificatebyId, updateRequestCertificatebyId } from '../controllers/certificateController';
 
 const router = express.Router();
+
+router.get('/:id', getRequestCertificateById);
 
 router.get('/', getRequestCertificates);
 
