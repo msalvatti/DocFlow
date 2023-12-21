@@ -61,6 +61,27 @@ router.post('/upload/:id', async (req, res) => {
   }
 });
 
+router.get('/upload/:fileName', async (req, res) => {
+  try {
+    const token = req.headers.authorization;
+    const fileName: string = req.params.fileName;
+
+    const response = await axios.get(
+      `${CERTIFICATE_SERVICE_URL}/api/certificate/upload/${fileName}`,
+      {
+        headers: {
+          Authorization: token,
+        },
+        responseType: 'stream',
+      }
+    );
+
+    response.data.pipe(res);
+  } catch (error: unknown) {
+    handleAxiosError(error, res);
+  }
+});
+
 router.get('/:id', async (req, res) => {
   try {
     const token = req.headers.authorization;
@@ -68,6 +89,23 @@ router.get('/:id', async (req, res) => {
     const id: string = req.params.id;
 
     const response = await axios.get(`${CERTIFICATE_SERVICE_URL}/api/certificate/${id}`, {
+      headers: {
+        Authorization: token,
+      },
+    });
+
+    res.status(response.status).json(response.data);
+  } catch (error: unknown) {
+    handleAxiosError(error, res);
+  }
+});
+
+router.delete('/upload/:fileName', async (req, res) => {
+  try {
+    const token = req.headers.authorization;
+    const fileName: string = req.params.fileName;
+
+    const response = await axios.delete(`${CERTIFICATE_SERVICE_URL}/api/certificate/upload/${fileName}`, {
       headers: {
         Authorization: token,
       },

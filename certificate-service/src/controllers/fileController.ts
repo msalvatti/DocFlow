@@ -2,14 +2,20 @@ import { Request, Response } from 'express';
 import fs from 'fs';
 import path from 'path';
 
-export const getFile = async (req: Request, res: Response): Promise<Response> => {
+export const getFile = async (req: Request, res: Response): Promise<void> => {
     try {
+        const fileName = req.params.fileName;
+        const filePath = path.resolve(__dirname, "..", "..", "files", fileName);
+        if (!fs.existsSync(filePath)) {
+            res.sendStatus(404);
+            return;
+        }
 
-
-        return res.status(200).send('getFile');
+        res.download(filePath);
     } catch (error) {
         console.error('Error Get File of Request Certificates:', error);
-        return res.status(500).send('500 Internal Server Error.');
+        res.status(500).send('500 Internal Server Error.');
+        return;
     }
 };
 
@@ -36,9 +42,12 @@ export const addFile = async (req: Request, res: Response): Promise<Response> =>
 
 export const deleteFile = async (req: Request, res: Response): Promise<Response> => {
     try {
+        const fileName = req.params.fileName;
+        const filePath = path.resolve(__dirname, "..", "..", "files", fileName);
+        if (!fs.existsSync(filePath)) return res.sendStatus(404);
 
-
-        return res.status(200).send('deleteFile');
+        fs.unlinkSync(filePath);
+        return res.sendStatus(204);
     } catch (error) {
         console.error('Error Delete File of Request Certificates:', error);
         return res.status(500).send('500 Internal Server Error.');
