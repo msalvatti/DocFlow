@@ -28,6 +28,7 @@ git clone https://github.com/msalvatti/DocFlow.git
 2. Navigate to the project directory:
 
 cd DocFlow
+
 cd auth-service
 
 3. Install dependencies:
