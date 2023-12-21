@@ -16,6 +16,7 @@ function RequestCertificate() {
     const [request, setRequest] = useState<Certificate>();
     const [error, setError] = useState<string>("");
     const [isLoading, setIsLoading] = useState<boolean>(false);
+    const [reset, setReset] = useState<boolean>(false);
 
     function useQuery() {
         return new URLSearchParams(useLocation().search);
@@ -50,6 +51,7 @@ function RequestCertificate() {
                 AddRequestCertificate(values)
                     .then(result => {
                         setMessage("Data has been saved successfully!");
+                        setReset(true);
                     })
                     .catch(err => {
                         setMessage("");
@@ -84,6 +86,7 @@ function RequestCertificate() {
 
     function onFileChange(name: string) {
         setFieldValue("filename", name);
+        setReset(false);
     }
 
     useEffect(() => {
@@ -107,6 +110,7 @@ function RequestCertificate() {
             setFieldValue("address", request.address);
             setFieldValue("certificate", request.certificate);
             setFieldValue("status", request.status);
+            if (request.filename) setFieldValue("filename", request.filename);
         }
     }, [request, setFieldValue])
 
@@ -268,7 +272,7 @@ function RequestCertificate() {
                             </div>
                         </div>
                     </div>
-                    <RequestCertificateFile filename={request?.filename || ""} onFileChange={(n: string) => onFileChange(n)} />
+                    <RequestCertificateFile filename={request?.filename || ""} resetFile={reset} onFileChange={(n: string) => onFileChange(n)} />
                 </div>
             </main>
         </>

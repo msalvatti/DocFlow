@@ -4,6 +4,7 @@ import { uploadFile, deleteFile } from '../../services/ApiService';
 
 type Props = {
     filename: string | undefined;
+    resetFile: boolean;
     onFileChange: Function;
 }
 
@@ -73,6 +74,15 @@ function RequestCertificateFiles(props: Props) {
         if (props.filename)
             setFilename(props.filename);
     }, [props.filename])
+
+    useEffect(() => {
+        if (props.resetFile) {
+            setFilename("")
+            if (fileInputRef.current) {
+                fileInputRef.current.value = "";
+            }
+        }
+    }, [props.resetFile])
 
     return (
         <div className="row">
