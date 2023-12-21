@@ -27,7 +27,7 @@ git clone https://github.com/msalvatti/DocFlow.git
 
 cd DocFlow
 
-cd __commons__
+cd (_commons_)
 
 3. Install dependencies:
 
