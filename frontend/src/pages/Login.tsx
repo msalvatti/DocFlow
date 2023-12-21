@@ -32,7 +32,7 @@ function Login() {
     },
   });
 
-  const { handleSubmit, handleChange, values, errors, isSubmitting } = formik;
+  const { handleSubmit, handleChange, values, errors, touched, isSubmitting } = formik;
 
   return (
     <main className="main-content mt-0">
@@ -58,7 +58,7 @@ function Login() {
                         type="text"
                         id="username"
                         name="username"
-                        className={`form-control ${errors.username ? 'is-invalid' : ''}`}
+                        className={`form-control ${!!errors.username && touched.username ? 'is-invalid' : ''}`}
                         onChange={handleChange}
                         value={values.username}
                       />
@@ -70,7 +70,7 @@ function Login() {
                         type="password"
                         id="password"
                         name="password"
-                        className={`form-control ${errors.password ? 'is-invalid' : ''}`}
+                        className={`form-control ${!!errors.password && touched.password ? 'is-invalid' : ''}`}
                         onChange={handleChange}
                         value={values.password}
                       />

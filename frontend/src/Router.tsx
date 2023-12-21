@@ -1,7 +1,7 @@
 import { Route, BrowserRouter, Routes, Navigate } from 'react-router-dom';
 import Login from './pages/Login';
 import Dashboard from './pages/Dashboard/Dashboard';
-import RequestCertificate from './pages/RequestCertificate';
+import RequestCertificate from './pages/RequestCertificate/RequestCertificate';
 
 function Router() {
 

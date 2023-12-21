@@ -63,11 +63,15 @@ router.post('/upload/:id', async (req, res) => {
 
 router.get('/upload/:fileName', async (req, res) => {
   try {
-    const token = req.headers.authorization;
+    let token = req.headers.authorization;
+    const queryToken = req.query.token as string;
+
+    token = token ? token : queryToken;
+
     const fileName: string = req.params.fileName;
 
     const response = await axios.get(
-      `${CERTIFICATE_SERVICE_URL}/api/certificate/upload/${fileName}`,
+      `${CERTIFICATE_SERVICE_URL}/api/certificate/upload/${fileName}?token=${token}`,
       {
         headers: {
           Authorization: token,

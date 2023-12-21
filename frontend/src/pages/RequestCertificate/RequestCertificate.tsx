@@ -3,11 +3,12 @@ import { useFormik } from 'formik';
 import * as Yup from 'yup';
 import { useLocation } from "react-router-dom";
 import InputMask from 'react-input-mask';
-import Sidebar from "../components/Sidebar";
-import Alert from "../components/Alert";
-import Loader from "../components/Loader";
-import { AddRequestCertificate, getRequestCertificateById, updateRequestCertificatebyId } from "../services/ApiService";
-import { Certificate } from "../services/ApiService";
+import Sidebar from "../../components/Sidebar";
+import Alert from "../../components/Alert";
+import Loader from "../../components/Loader";
+import RequestCertificateFile from "./RequestCertificateFile";
+import { AddRequestCertificate, getRequestCertificateById, updateRequestCertificatebyId } from "../../services/ApiService";
+import { Certificate } from "../../services/ApiService";
 
 function RequestCertificate() {
 
@@ -30,7 +31,8 @@ function RequestCertificate() {
             birthDate: '',
             address: '',
             certificate: '',
-            status: ''
+            status: '',
+            filename: ''
         },
         validationSchema: Yup.object().shape({
             name: Yup.string().nullable().required('Name is required'),
@@ -78,7 +80,11 @@ function RequestCertificate() {
         },
     });
 
-    const { handleSubmit, handleChange, setFieldValue, values, errors, isSubmitting } = formik;
+    const { handleSubmit, handleChange, setFieldValue, values, errors, touched, isSubmitting } = formik;
+
+    function onFileChange(name: string) {
+        setFieldValue("filename", name);
+    }
 
     useEffect(() => {
         if (id) {
@@ -144,7 +150,7 @@ function RequestCertificate() {
                                                     type="text"
                                                     id="name"
                                                     name="name"
-                                                    className={`form-control ${errors.name ? 'is-invalid' : ''}`}
+                                                    className={`form-control ${!!errors.name && touched.name ? 'is-invalid' : ''}`}
                                                     onChange={handleChange}
                                                     value={values.name}
                                                     disabled={!!id}
@@ -159,7 +165,7 @@ function RequestCertificate() {
                                                     type="text"
                                                     id="cpf"
                                                     name="cpf"
-                                                    className={`form-control ${errors.cpf ? 'is-invalid' : ''}`}
+                                                    className={`form-control ${!!errors.cpf && touched.cpf ? 'is-invalid' : ''}`}
                                                     onChange={handleChange}
                                                     value={values.cpf}
                                                     disabled={!!id}
@@ -174,7 +180,7 @@ function RequestCertificate() {
                                                     type="text"
                                                     id="phone"
                                                     name="phone"
-                                                    className={`form-control ${errors.phone ? 'is-invalid' : ''}`}
+                                                    className={`form-control ${!!errors.phone && touched.phone ? 'is-invalid' : ''}`}
                                                     onChange={handleChange}
                                                     value={values.phone}
                                                     disabled={!!id}
@@ -189,7 +195,7 @@ function RequestCertificate() {
                                                     type="text"
                                                     id="birthDate"
                                                     name="birthDate"
-                                                    className={`form-control ${errors.birthDate ? 'is-invalid' : ''}`}
+                                                    className={`form-control ${!!errors.birthDate && touched.birthDate ? 'is-invalid' : ''}`}
                                                     onChange={handleChange}
                                                     value={values.birthDate}
                                                     disabled={!!id}
@@ -203,7 +209,7 @@ function RequestCertificate() {
                                                     type="text"
                                                     id="address"
                                                     name="address"
-                                                    className={`form-control ${errors.address ? 'is-invalid' : ''}`}
+                                                    className={`form-control ${!!errors.address && touched.address ? 'is-invalid' : ''}`}
                                                     onChange={handleChange}
                                                     value={values.address}
                                                     disabled={!!id}
@@ -216,7 +222,7 @@ function RequestCertificate() {
                                                 <select
                                                     id="certificate"
                                                     name="certificate"
-                                                    className={`form-control ${errors.certificate ? 'is-invalid' : ''}`}
+                                                    className={`form-control ${!!errors.certificate && touched.certificate ? 'is-invalid' : ''}`}
                                                     onChange={handleChange}
                                                     value={values.certificate}
                                                     disabled={!!id}
@@ -262,6 +268,7 @@ function RequestCertificate() {
                             </div>
                         </div>
                     </div>
+                    <RequestCertificateFile filename={request?.filename || ""} onFileChange={(n: string) => onFileChange(n)} />
                 </div>
             </main>
         </>

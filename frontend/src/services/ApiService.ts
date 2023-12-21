@@ -40,6 +40,11 @@ export async function doLogin(username: string, password: string) {
     return response.data.token;
 }
 
+export function doLogout() {
+    localStorage.removeItem("profile");
+    localStorage.removeItem("token");
+}
+
 export async function getRequestCertificates(search?: string | null) {
     const queryParams = search ? `?search=${search}` : '';
     const response = await axios.get(`${API_URL}/api/certificate${queryParams}`);
@@ -66,7 +71,18 @@ export async function updateRequestCertificatebyId(certificate: Certificate, id:
     return response;
 }
 
-export function doLogout() {
-    localStorage.removeItem("profile");
-    localStorage.removeItem("token");
+export async function uploadFile(fileName: string, file: File) {
+    const formData = new FormData();
+    formData.append("file", file);
+
+    await axios.post(`${API_URL}/api/certificate/upload/${fileName}`, formData, {
+        headers: {
+            "Content-Type": "multipart/form-data"
+        }
+    })
+}
+
+export async function deleteFile(name: string) {
+    const response = await axios.delete(`${API_URL}/api/certificate/upload/${name}`);
+    return response;
 }
