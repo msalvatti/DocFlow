@@ -92,6 +92,17 @@ function Dashboard() {
                                             ? <Loader />
                                             : <></>
                                     }
+
+                                    <div className="input-group input-group-dynamic mb-4 w-30 ms-auto me-4">
+                                        <span className="input-group-text" id="basic-addon1">
+                                            <button className="btn btn-sm input-group-text me-1 m-0 px-2 py-1">
+                                                <i className="material-icons text-lg">search</i>
+                                            </button>
+                                        </span>
+
+                                        <input type="text" className="form-control" placeholder="Search" aria-label="search" aria-describedby="basic-addon1" />
+                                    </div>
+
                                     <div className="table-responsive p-0">
                                         <table className="table align-items-center mb-0">
                                             <thead>

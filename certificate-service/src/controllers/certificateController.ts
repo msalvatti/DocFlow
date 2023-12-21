@@ -9,14 +9,22 @@ export const getRequestCertificates = async (req: Request, res: Response): Promi
 
         const profile = res.locals.token.profile;
 
+        const search: string = req.query.search != null ? String(req.query.search) : '';
+
         if (profile !== `${Profiles.CLIENT}`)
             userId = null;
 
-        const certificates = await certificatesRepository.getRequestCertificates(userId);
+        let certificates;
+        if (search) {
+            certificates = await certificatesRepository.getSearchRequestCertificates(search, userId);
+        }
+        else
+            certificates = await certificatesRepository.getRequestCertificates(userId);
+
 
         return res.json(certificates);
     } catch (error) {
-        console.error('Error Get Request Certificates by User:', error);
+        console.error('Error Get Request Certificates:', error);
         return res.status(500).send('500 Internal Server Error.');
     }
 };
@@ -37,7 +45,7 @@ export const getRequestCertificateById = async (req: Request, res: Response): Pr
 
         return res.json(certificate);
     } catch (error) {
-        console.error('Error Get Request Certificates by User:', error);
+        console.error('Error Get Request Certificates by Id:', error);
         return res.status(500).send('500 Internal Server Error.');
     }
 };

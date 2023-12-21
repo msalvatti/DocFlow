@@ -15,11 +15,13 @@ function handleAxiosError(error: unknown, res: express.Response): void {
   }
 }
 
-router.get('/', async (req, res) => {
+router.get('/:id', async (req, res) => {
   try {
     const token = req.headers.authorization;
 
-    const response = await axios.get(`${CERTIFICATE_SERVICE_URL}/api/certificate`, {
+    const id: string = req.params.id;
+
+    const response = await axios.get(`${CERTIFICATE_SERVICE_URL}/api/certificate/${id}`, {
       headers: {
         Authorization: token,
       },
@@ -31,13 +33,13 @@ router.get('/', async (req, res) => {
   }
 });
 
-router.get('/:id', async (req, res) => {
+router.get('/', async (req, res) => {
   try {
     const token = req.headers.authorization;
 
-    const id: string = req.params.id;
+    const search: string = req.query.search != null ? `?search=${req.query.search}` : '';
 
-    const response = await axios.get(`${CERTIFICATE_SERVICE_URL}/api/certificate/${id}`, {
+    const response = await axios.get(`${CERTIFICATE_SERVICE_URL}/api/certificate${search}`, {
       headers: {
         Authorization: token,
       },

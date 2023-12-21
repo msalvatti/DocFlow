@@ -13,6 +13,63 @@ async function getRequestCertificates(userId?: string): Promise<Certificate[] | 
     return certificates;
 }
 
+async function getSearchRequestCertificates(search: string, userId?: string): Promise<Certificate[] | null> {
+    const db = await connect();
+
+    const whereCondition: any = {
+        OR: [
+            {
+                name: {
+                    contains: search,
+                    mode: 'insensitive'
+                }
+            },
+            {
+                cpf: {
+                    contains: search,
+                    mode: 'insensitive'
+                }
+            },
+            {
+                phone: {
+                    contains: search,
+                    mode: 'insensitive'
+                }
+            },
+            {
+                address: {
+                    contains: search,
+                    mode: 'insensitive'
+                }
+            },
+            {
+                certificate: {
+                    contains: search,
+                    mode: 'insensitive'
+                }
+            },
+            {
+                status: {
+                    contains: search,
+                    mode: 'insensitive'
+                }
+            },
+        ]
+    };
+
+    if (userId) {
+        whereCondition.AND = {
+            userId: userId,
+        };
+    }
+
+    const certificates = await db.certificates.findMany({
+        where: whereCondition,
+    });
+
+    return certificates;
+}
+
 async function getRequestCertificateById(id: string): Promise<Certificate | null> {
     const db = await connect();
 
@@ -77,6 +134,7 @@ async function updateRequestCertificateById(id: string, updatedCertificateData: 
 export default {
     getRequestCertificates,
     getRequestCertificateById,
+    getSearchRequestCertificates,
     addRequestCertificate,
     updateRequestCertificateById,
     deleteRequestCertificateById
