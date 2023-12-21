@@ -16,6 +16,8 @@ function Dashboard() {
     const [error, setError] = useState<string>("");
     const [isLoading, setIsLoading] = useState<boolean>(false);
     const [isRefresh, setRefresh] = useState<boolean>(false);
+    const [search, setSearch] = useState<string | null>(null);
+    const [inputValue, setInputValue] = useState<string>("");
 
     useEffect(() => {
         setRefresh(true);
@@ -24,7 +26,7 @@ function Dashboard() {
     useEffect(() => {
         if (isRefresh) {
             setIsLoading(true);
-            getRequestCertificates()
+            getRequestCertificates(search)
                 .then(result => {
                     setRequests(result.data)
                     setIsLoading(false);
@@ -35,7 +37,7 @@ function Dashboard() {
                 });
             setRefresh(false);
         }
-    }, [isRefresh])
+    }, [isRefresh, search])
 
     function onDelete(id: string) {
         setIsLoading(true);
@@ -58,6 +60,11 @@ function Dashboard() {
 
     function onEdit(id: string) {
         navigate(`/request?id=${id}`);
+    }
+
+    function onSearch(search: string) {
+        setSearch(search);
+        setRefresh(true);
     }
 
     return (
@@ -94,13 +101,13 @@ function Dashboard() {
                                     }
 
                                     <div className="input-group input-group-dynamic mb-4 w-30 ms-auto me-4">
+                                        <input type="text" className="form-control" placeholder="Search" aria-label="search" aria-describedby="basic-addon1" onChange={(e) => setInputValue(e.target.value)} onKeyDown={(e) => e.key === 'Enter' && onSearch(inputValue)} />
+
                                         <span className="input-group-text" id="basic-addon1">
-                                            <button className="btn btn-sm input-group-text me-1 m-0 px-2 py-1">
+                                            <button className="btn btn-sm input-group-text me-1 m-0 px-2 py-1" onClick={() => onSearch(inputValue)}>
                                                 <i className="material-icons text-lg">search</i>
                                             </button>
                                         </span>
-
-                                        <input type="text" className="form-control" placeholder="Search" aria-label="search" aria-describedby="basic-addon1" />
                                     </div>
 
                                     <div className="table-responsive p-0">

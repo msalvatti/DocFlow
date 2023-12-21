@@ -40,8 +40,9 @@ export async function doLogin(username: string, password: string) {
     return response.data.token;
 }
 
-export async function getRequestCertificates() {
-    const response = await axios.get(`${API_URL}/api/certificate`);
+export async function getRequestCertificates(search?: string | null) {
+    const queryParams = search ? `?search=${search}` : '';
+    const response = await axios.get(`${API_URL}/api/certificate${queryParams}`);
     return response;
 }
 
