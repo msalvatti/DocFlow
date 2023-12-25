@@ -8,7 +8,14 @@ router.post('/login', async (req, res) => {
   try {
     const { username, password } = req.body;
 
-    const response = await axios.post(`${AUTH_SERVICE_URL}/api/auth/login`, { username, password });
+    const response = await axios.post(`${AUTH_SERVICE_URL}/api/auth/login`,
+      { username, password },
+      {
+        headers: {
+          Origin: `${process.env.GATEWAY_URL}`,
+        },
+      }
+    );
 
     const token = response.data.token;
 

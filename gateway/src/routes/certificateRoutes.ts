@@ -51,7 +51,8 @@ router.post('/upload/:id', async (req, res) => {
         headers: {
           Authorization: token,
           'Content-Type': 'multipart/form-data',
-        },
+          Origin: `${process.env.GATEWAY_URL}`,
+        }
       }
     );
 
@@ -75,6 +76,7 @@ router.get('/upload/:fileName', async (req, res) => {
       {
         headers: {
           Authorization: token,
+          Origin: `${process.env.GATEWAY_URL}`,
         },
         responseType: 'stream',
       }
@@ -95,6 +97,7 @@ router.get('/:id', async (req, res) => {
     const response = await axios.get(`${CERTIFICATE_SERVICE_URL}/api/certificate/${id}`, {
       headers: {
         Authorization: token,
+        Origin: `${process.env.GATEWAY_URL}`,
       },
     });
 
@@ -112,6 +115,7 @@ router.delete('/upload/:fileName', async (req, res) => {
     const response = await axios.delete(`${CERTIFICATE_SERVICE_URL}/api/certificate/upload/${fileName}`, {
       headers: {
         Authorization: token,
+        Origin: `${process.env.GATEWAY_URL}`,
       },
     });
 
@@ -130,6 +134,7 @@ router.get('/', async (req, res) => {
     const response = await axios.get(`${CERTIFICATE_SERVICE_URL}/api/certificate${search}`, {
       headers: {
         Authorization: token,
+        Origin: `${process.env.GATEWAY_URL}`,
       },
     });
 
@@ -148,6 +153,7 @@ router.post('/', async (req, res) => {
     const response = await axios.post(`${CERTIFICATE_SERVICE_URL}/api/certificate`, { certificate }, {
       headers: {
         Authorization: token,
+        Origin: `${process.env.GATEWAY_URL}`,
       },
     });
 
@@ -166,6 +172,7 @@ router.delete('/:id', async (req, res) => {
     const response = await axios.delete(`${CERTIFICATE_SERVICE_URL}/api/certificate/${id}`, {
       headers: {
         Authorization: token,
+        Origin: `${process.env.GATEWAY_URL}`,
       },
     });
 
@@ -186,6 +193,7 @@ router.put('/:id', async (req, res) => {
     const response = await axios.put(`${CERTIFICATE_SERVICE_URL}/api/certificate/${id}`, { certificate }, {
       headers: {
         Authorization: token,
+        Origin: `${process.env.GATEWAY_URL}`,
       },
     });
 
